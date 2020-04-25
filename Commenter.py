@@ -1,3 +1,8 @@
+"""
+This file was made by Nimrod Rappaport on: "25/4/2020".
+It was made to help with the hebrew translation of Rimworld.
+I take no responsibility for people's actions with this code. In the translation and outside of it.
+"""
 import re
 import sys
 
