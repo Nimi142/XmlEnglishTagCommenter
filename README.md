@@ -24,8 +24,8 @@ After the code has finished running, the file will look like this:
 - Ensure that you have python installed on your machine, it will not work otherwise.
 - Open the Commenter.py file inside the repository.
  - You can open it in the cmd or through the file explorer, it doesn't matter.
-- As said, Input the file's path
-- Done!
+- Input the file's path.
+- For developers: You can call the function through python code by importing the file.
 
 # General remarks:
 As specified inside the code, I take no responsibility for any actions the code has done. *USE AT YOUR OWN RISK*.<br/>

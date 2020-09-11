@@ -124,3 +124,10 @@ dmypy.json
 # Pyre type checker
 .pyre/
 Example.xml
+
+# Pycharm editor files:
+.idea/
+__pycache__/
+
+# Testing files:
+Example.xml

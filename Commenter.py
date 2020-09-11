@@ -1,34 +1,26 @@
-"""
-This file was made by Nimrod Rappaport on: "25/4/2020".
-It was made to help with the hebrew translation of Rimworld.
-I take no responsibility for people's actions with this code. In the translation and outside of it.
-"""
 import re
-import sys
 
-file_path = input("Input file path: ")
-pattern = r"( *)<[^!].*>([\d\WA-Za-z]*)<.*>"
-comment_identifier = r"<!--"
-try:
-    data = open(file_path, "r", encoding="utf-8").readlines()
-except FileNotFoundError:
-    print("File not found! Are you sure the file's path is correct?")
-    sys.exit()
-output_data = []
-line_already_commented = False
-for i in data:
-    match = re.search(pattern, i)
-    if match and not line_already_commented:
-        line_already_commented = False
-        inTag = match.group(1) + "<!-- EN: " + match.group(2) + " -->\n"
-        output_data.extend([inTag, i])
-    else:
-        output_data.append(i)
-    if comment_identifier in i:
-        line_already_commented = True
 
-file = open(file_path, "w", encoding="utf-8")
-for i in output_data:
-    file.write(i)
-file.close()
-print("File: " + file.name + ", at path: " + file_path + ", was commented successfully.")
+def tag_file(absolute_path):
+    # Reading file
+    try:
+        file = open(absolute_path, "r", encoding="utf-8")
+    except FileNotFoundError:
+        return "Couldn't find file, commenting failed."
+    # Reading data from file:
+    data = file.read()
+    file.close()
+    # Making the comments with an overly complex regex substitution pattern:
+    data = re.sub(r"(?<!-->)(\n+)((\s*)<.*>(.*)</.*>)", r"\1\3<!-- EN:\4 -->\n\2", data)
+    # Opening file for writing (and removing all things that were previously written to it):
+    file = open(absolute_path, "w", encoding="utf-8")
+    # Writing data:
+    file.write(data)
+    return f"Commenting of file {absolute_path} completed successfully."
+
+
+if __name__ == '__main__':
+    print("It's recommended to make a copy of the file before running the program on it, as it modifies it's text.\n"
+          "The program will not comment the first line in a file.")
+    file_path = input("Input file's path:\n")
+    print(tag_file(file_path))
